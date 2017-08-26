@@ -1,42 +1,68 @@
 # hello.py
 
-from flask import Flask, request
-#from flask import url_for
+from flask import Flask
+from flask import redirect
+from flask import make_response, Response
+from flask import abort
 
 
 app = Flask(__name__)
 
-statistic_data = {}
-
-
-@app.before_request
-def statistic():
-    if request.path in ["/", "/statistic"]:    # request.path in [url_for("index"), url_for("get_statistic")]
-        return
-
-    statistic_data[request.path] = statistic_data.setdefault(request.path, 0) + 1
-
+'''
+@app.route("/")
+def index():
+    return "<h1>Bad Request</h1>", 400
+'''
+'''
+@app.route("/")
+def index():
+    return "<h1>Redirect</h1>", 302, {"Location": "http://www.google.com"}
+'''
 
 @app.route("/")
 def index():
-    user_agent = request.headers.get("User-Agent")
-    user_name = request.args.get("name")
-    return "<p>Your browser is {}</p><p>Your name is {}</p>".format(user_agent, user_name)
+    return redirect("http://www.google.com")
 
 
-@app.route("/statistic")
-def get_statistic():
-    return "statistic_data: {}".format(statistic_data)
+@app.route("/no_cookie")
+def no_cookie():
+    response = make_response("<h1>This document doesn't carry a cookie!</h1>")
+    return response
+
+'''
+@app.route("/has_cookie")
+def has_cookie():
+    response = make_response("<h1>This document carries a cookie!</h1>")
+    response.set_cookie("answer", "42")
+    return response
+'''
+
+@app.route("/has_cookie")
+def has_cookie():
+    data = "<h1>This document carries a cookie!</h1>"
+    headers = {}
+    headers["Set-Cookie"] = "answer=45"
+    return Response(data, headers=headers)
 
 
-@app.route("/buy/food")
-def buy_food():
-    return "<p>Here is your food.</p>"
+def load_user(uid):
+    try:
+        uid = int(uid)
+        if uid == 1:
+            return "Maomao"
+        elif uid == 2:
+            return "Alicia"
+    except BaseException:
+        return
 
 
-@app.route("/buy/drink")
-def buy_drink():
-    return "<p>Here is your dirnk.</p>"
+@app.route("/user/<uid>")
+def get_user(uid):
+    user = load_user(uid)
+    if not user:
+        abort(400)
+    else:
+        return "<h1>Hello, {}!</h1>".format(user)
 
 
 if __name__ == "__main__":
