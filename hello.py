@@ -1,39 +1,43 @@
 # hello.py
 
-from flask import Flask
+from flask import Flask, request
+#from flask import url_for
+
+
 app = Flask(__name__)
+
+statistic_data = {}
+
+
+@app.before_request
+def statistic():
+    if request.path in ["/", "/statistic"]:    # request.path in [url_for("index"), url_for("get_statistic")]
+        return
+
+    statistic_data[request.path] = statistic_data.setdefault(request.path, 0) + 1
 
 
 @app.route("/")
 def index():
-    return "<h1>Hellow Word</h1>"
+    user_agent = request.headers.get("User-Agent")
+    user_name = request.args.get("name")
+    return "<p>Your browser is {}</p><p>Your name is {}</p>".format(user_agent, user_name)
 
 
-@app.route("/users")
-def get_users():
-    users = ["Maomao", "Alicia"]
-    resp = ["<p>{}</p>".format(user) for user in users]
-    resp = "\n".join(resp)
-
-    return resp
+@app.route("/statistic")
+def get_statistic():
+    return "statistic_data: {}".format(statistic_data)
 
 
-@app.route("/user/<name>")
-def get_user_name(name):
-    return "<h1>Hello, {}!</h1>".format(name)
+@app.route("/buy/food")
+def buy_food():
+    return "<p>Here is your food.</p>"
 
 
-@app.route("/user/<int:uid>")
-def get_user_id(uid):
-    if isinstance(uid, int):
-        return "<h1>Your ID: {}</h1>".format(uid)
-    return "<h1>ID should be int</h1>"
-
-
-@app.route("/user/<path:path>")
-def get_user_path(path):
-    return "<h1>Path: {}</h1>".format(path)
+@app.route("/buy/drink")
+def buy_drink():
+    return "<p>Here is your dirnk.</p>"
 
 
 if __name__ == "__main__":
-    app.run(port=5566)
+    app.run(threaded=True, debug=True)
