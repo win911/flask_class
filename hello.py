@@ -1,10 +1,28 @@
 # hello.py
 
-from flask import Flask, render_template
+from flask import Flask, render_template, abort
+from flask_bootstrap import Bootstrap
+#from flask.ext.bootstrap import Bootstrap
+#from flask import url_for
 
 
 app = Flask(__name__)
-registered_users = ["maomao", "alicia"]
+bootstrap = Bootstrap(app)
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template("404.html"), 404
+
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    return render_template("500.html"), 500
+
+
+@app.route("/test")
+def test():
+    abort(500)
 
 
 @app.route("/")
@@ -14,14 +32,7 @@ def index():
 
 @app.route("/user/<name>")
 def user(name):
-    if name not in registered_users:
-        name = None
     return render_template("user.html", name=name)
-
-
-@app.route("/users")
-def users():
-    return render_template("users.html", users=registered_users)
 
 
 if __name__ == "__main__":
