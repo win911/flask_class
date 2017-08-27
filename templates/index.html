@@ -3,9 +3,14 @@
 {% extends "base.html" %}
 
 {% block title %}Flasky - Index{% endblock %}
+{% block scripts %}
+{{ super() }}
+{{ moment.include_moment() }}
+{% endblock %}
 
 {% block page_content %}
 <div class="page-header">
-    <h1>Hello World!</h1>
+    <p>The local data and time is {{ moment(current_time).format('LLL') }}.</p>
+    <p>That was {{ moment(current_time).fromNow(refresh = True) }}</p>
 </div>
 {% endblock %}
