@@ -1,0 +1,8 @@
+{
+  "type": "object",
+  "properties": {
+    "title": {"type": "string", "maxLength": 50, "minLength": 10},
+    "author": {"type": "string", "maxLength": 30, "minLength": 1}
+  },
+  "required": ["title", "author"]
+}
