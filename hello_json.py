@@ -3,13 +3,19 @@
 import os
 
 from flask import Flask, request
-from flask_jsonschema import JsonSchema, ValidationError
+from jsonschema import validate, ValidationError
 
 
 app = Flask(__name__)
-app.config["JSONSCHEMA_DIR"] = os.path.join(app.root_path, "schemas")
 
-jsonschema = JsonSchema(app)
+schema = {
+    "type": "object",
+    "properties": {
+    "title": {"type": "string", "maxLength": 50, "minLength": 10},
+    "author": {"type": "string", "maxLength": 30, "minLength": 1}
+    },
+    "required": ["title", "author"]
+}
 
 
 @app.errorhandler(ValidationError)
@@ -18,10 +24,15 @@ def on_validation_error(e):
 
 
 @app.route("/books", methods=["POST"])
-@jsonschema.validate("books", "create")
-#@jsonschema.validate("create_book")
 def create_book():
-    book_name = request.json["title"]
+    if request.form:
+        validate(request.form, schema)
+        book_name = request.form["title"]
+    elif request.json:
+        validate(request.json, schema)
+        book_name = request.json["title"]
+    else:
+        raise ValidationError("Invalid data format")
     return "[success] create book: {}".format(book_name)
 
 
