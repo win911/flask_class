@@ -5,8 +5,20 @@
 
 {% block title %}Flasky{% endblock %}
 
-{% block page_content %}
-<div class="page-header">
-    <h1>Login</h1>
+{% block content %}
+<div class="container">
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message }}
+    </div>
+    {% endfor %}
+
+    {% block page_content %}
+    <div class="page-header">
+        <h1>Login</h1>
+    </div>
+    {{ wtf.quick_form(form) }}
+    {% endblock %}
 </div>
 {% endblock %}

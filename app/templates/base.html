@@ -1,3 +1,5 @@
+<!-- app/templates/base.html -->
+
 {% extends "bootstrap/base.html" %}
 
 {% block title %}Flasky{% endblock %}
@@ -23,6 +25,13 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li><a href="{{ url_for('main.index') }}">Home</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
+                {% else %}
+                <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
+                {% endif %}
             </ul>
         </div>
     </div>
