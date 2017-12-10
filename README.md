@@ -14,7 +14,7 @@ You can also find the slides of our workshop below.
 
 ## About PyLadies Taiwan
 
-[Pyladies](http://tw.pyladies.com/) is a group of women developers who love the Python programming language.
+[PyLadies](http://tw.pyladies.com/) is a group of women developers who love the Python programming language.
 
 We are an international mentorship group with a focus on helping more women become active participants and leaders in the Python open-source community.
 
