@@ -12,11 +12,11 @@ You can also find the slides of our workshop below.
 + [**Chapter 3 (part 2) ~ 5**](http://tw.pyladies.com/~maomao/2_flask.slides.html#/)
 + [**Chapter 6 ~ 7**](http://tw.pyladies.com/~maomao/3_flask.slides.html#/)
 
-## About PyLdaies Taiwan
+## About PyLadies Taiwan
 
 [Pyladies](http://tw.pyladies.com/) is a group of women developers who love the Python programming language.
 
-We are an international mentorship group  with a focus on helping more women become active participants and leaders in the Python open-source community.
+We are an international mentorship group with a focus on helping more women become active participants and leaders in the Python open-source community.
 
 We host monthly meetups with different topics such as beginners meetups, project of python presentation and tutorial. Open to all who identify as women. Feel free to join us!
 
