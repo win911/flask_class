@@ -4,6 +4,11 @@
 {% import "bootstrap/wtf.html" as wtf %}
 {% import "_macros.html" as macros %}
 
+{% block scripts %}
+{{ super() }}
+{{ pagedown.include_pagedown() }}
+{% endblock %}
+
 {% block title %}Flasky{% endblock %}
 
 {% block page_content %}
