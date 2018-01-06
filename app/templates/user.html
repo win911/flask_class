@@ -1,6 +1,7 @@
 <!-- app/templates/user.html -->
 
 {% extends "base.html" %}
+{% import "_macros.html" as macros %}
 
 {% block title %}Flasky - {{ user.username }}{% endblock %}
 {% block scripts %}
@@ -45,4 +46,12 @@
         </p>
     </div>
 </div>
+
+<h3>Posts by {{ user.username }}</h3>
+{% include '_posts.html' %}
+{% if pagination %}
+<div class="pagination">
+    {{ macros.pagination_widget(pagination, '.user_profile', username=user.username) }}
+</div>
+{% endif %}
 {% endblock %}
