@@ -51,7 +51,7 @@ def edit_profile():
     form.name.data = current_user.name
     form.location.data = current_user.location
     form.about_me.data = current_user.about_me
-    return render_template('edit_profile.html', form=form)
+    return render_template('edit_profile.html', form=form, user=current_user)
 
 
 @main.route('/edit-profile/<int:id>', methods=['GET', 'POST'])
@@ -79,4 +79,12 @@ def edit_profile_admin(id):
     form.name.data = user.name
     form.location.data = user.location
     form.about_me.data = user.about_me
-    return render_template('edit_profile.html', form=form)
+    return render_template('edit_profile.html', form=form, user=user)
+
+
+@main.route('/edit-profile/choose-user', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def choose_user():
+    users = User.query.all()
+    return render_template('choose_user.html', users=users)
