@@ -13,6 +13,7 @@ You can also find the slides of our workshop below.
 + [**Chapter 6 ~ 7**](http://tw.pyladies.com/~maomao/3_flask.slides.html#/)
 + [**Chapter 8**](http://tw.pyladies.com/~maomao/4_flask.slides.html#/)
 + [**Chapter 9 ~ 11**](http://tw.pyladies.com/~maomao/5_flask.slides.html#/)
++ [**Chapter 12 ~ 14**](http://tw.pyladies.com/~maomao/6_flask.slides.html#/)
 
 ## About PyLadies Taiwan
 
